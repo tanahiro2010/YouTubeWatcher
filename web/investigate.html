@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学的観点からみるシンギュラリティ - investigate</title>
+
+    <style>
+        /* ベーススタイル */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* 検索バー */
+        .investigate {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .investigate input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 4px 0 0 4px;
+            width: 300px;
+            box-sizing: border-box;
+        }
+
+        .investigate button.investigate-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #4CAF50;
+            border-left: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .investigate button.investigate-button:hover {
+            background-color: #45a049;
+        }
+
+        /* メインコンテンツ */
+        main {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .video_data {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+            width: 200px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .video_data:hover {
+            transform: scale(1.05);
+        }
+
+        .thumbnail {
+            width: 100%;
+            height: auto;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .title {
+            font-size: 18px;
+            padding: 10px;
+        }
+
+        /* モバイル対応 */
+        @media (max-width: 600px) {
+            .investigate input[type="text"] {
+                width: 200px;
+            }
+
+            .video_data {
+                width: 100%;
+                margin: 10px 0;
+            }
+        }
+    </style>
+
+</head>
+<body>
+<header>
+    <h1 class="title">Video Investigate</h1>
+    <div class="investigate">
+        <input type="text" placeholder="検索" id="investigate-word">
+        <button class="investigate-button">検索</button>
+        <script>
+            document.querySelector('.investigate-button').addEventListener('click', () =>{
+                console.log('click');
+                const xhr = new XMLHttpRequest();
+                xhr.open('GET', `/api/investigate/${document.querySelector('#investigate-word').value}`);
+                xhr.onloadend = (() =>{
+                    location.href = xhr.responseText;
+                });
+            });
+        </script>
+    </div>
+</header>
+
+<script>
+    function open_video(video_id) {
+        const xhr = new XMLHttpRequest();
+        console.log(`VideoId: ${video_id}`);
+
+        xhr.open('GET', `/api/watch_comment/${video_id}`);
+        xhr.send();
+
+        xhr.onloadend = (() => {
+            const response = xhr.responseText;
+            console.log(response);
+
+            window.location.href = response;
+        });
+    }
+</script>
+
+<main>
+    {% for video_data in video_objects %}
+        <div onclick="open_video(`{{ video_data['video_id'] }}`)" class="video_data">
+            <img src="{{ video_data['thumbnail'] }}" class="thumbnail"/>
+            <h2 class="title">{{ video_data['title'] }}</h2>
+        </div>
+    {% endfor %}
+</main>
+</body>
+</html>

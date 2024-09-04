@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学的観点からみるシンギュラリティー</title>
+
+    <style>
+        /* ベーススタイル */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        /* 検索バー */
+        .investigate {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .investigate input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #ccc;
+            border-radius: 4px 0 0 4px;
+            width: 300px;
+            box-sizing: border-box;
+        }
+
+        .investigate button.investigate-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: 2px solid #4CAF50;
+            border-left: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+        }
+
+        .investigate button.investigate-button:hover {
+            background-color: #45a049;
+        }
+
+        /* メインコンテンツ */
+        .video_box {
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .video {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .video video {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .video h2.title {
+            font-size: 24px;
+            margin-top: 15px;
+        }
+
+        .video p {
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <h1 class="title">tanahiro2010 - YTW</h1>
+
+        <div class="investigate">
+            <input type="text" placeholder="検索" id="investigate-word">
+            <button class="investigate-button">検索</button>
+            <script>
+                document.querySelector('.investigate-button').addEventListener('click', () =>{
+                    console.log('click');
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', `/api/investigate/${document.querySelector('#investigate-word').value}`);
+                    xhr.onloadend = (() =>{
+                        location.href = xhr.responseText;
+                    });
+                });
+            </script>
+        </div>
+    </header>
+
+    <main>
+        <div class="video_box">
+            <div class="video">
+                <video src="{{ video_url }}" controls></video>
+                <h2 class="title">{{ title }}</h2>
+                <p>{{ description }}</p>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

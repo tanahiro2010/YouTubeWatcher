@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学的観点からみるシンギュラリティ</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #6200ea;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background-color: #fff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        section h2 {
+            color: #6200ea;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        section p {
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #6200ea;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>数学的観点からみるシンギュラリティ</h1>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>1. 指数関数的成長</h2>
+            <p>シンギュラリティの可能性は、技術の進歩が指数関数的に成長し続けるかどうかに依存しています。例えば、ムーアの法則によれば、コンピュータの処理能力は18か月ごとに倍増しています。</p>
+            <p>このような成長を示す数学モデルは次のようになります:</p>
+            <p><em>f(t) = a &middot; e<sup>bt</sup></em></p>
+        </section>
+
+        <section>
+            <h2>2. フィードバックループと加速的進化</h2>
+            <p>AIが自らを改良し、その改良されたAIがさらに優れたAIを生み出すフィードバックループが形成されることで、技術の進化はさらに加速します。</p>
+            <p>これを表す数学的モデルは以下の通りです:</p>
+            <p><em>dN(t)/dt = k &middot; N(t)</em></p>
+        </section>
+
+        <section>
+            <h2>3. 不確実性とリスクの評価</h2>
+            <p>シンギュラリティの発生確率やその影響を評価するために、モンテカルロ法などの確率論的手法が用いられます。これにより、未来の予測がより現実的なものになります。</p>
+        </section>
+        <section> <!-- コメント送信 -->
+            <h2>コメント</h2>
+            <p>このサイト内容について何か指摘がある場合、下から送信願います</p>
+            <textarea class="comment" rows="10" cols="50"></textarea>
+            <button class="send">送信</button>
+
+            <script>
+                const comment_box = document.querySelector('.comment');
+                const send = document.querySelector('.send');
+
+                send.addEventListener('click', () =>{
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('GET', `/api/comment/value/${comment_box.value}`);
+                    xhr.send();
+                    xhr.onloadend = (() => {
+                        if (xhr.responseText.includes('true:')) {
+                            const url = xhr.responseText.replace('true:', '');
+                            location.href = url;
+                        }
+                    })
+                });
+            </script>
+        </section>
+    </div>
+
+    <footer>
+        &copy; 2024 数学的シンギュラリティ研究会
+    </footer>
+
+    
+</body>
+</html>
