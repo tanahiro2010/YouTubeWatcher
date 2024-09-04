@@ -94,7 +94,11 @@ def video_investigate(investigate_id):
     print('Investigate request\nID: {}\nIP_Address: {}'.format(investigate_id, request.remote_addr))
     if investigate_id in allow_investigate_id:
         print('Request Allowed.')
-        return render_template("investigate.html".format(root), video_objects=allow_investigate_id[investigate_id])
+
+        investigate_data = allow_investigate_id[investigate_id]
+
+        del allow_investigate_id[investigate_id]
+        return render_template("investigate.html".format(root), video_objects=investigate_data)
     else:
         print('Request DisAllowed.')
         return render_template('disallow.html'.format(root))
@@ -110,7 +114,9 @@ def watch_video(session_id):
         title = video_data['snippet']['title']
         description = video_data['snippet']['description'].format('\n', '<br>')
 
-        return render_template('watch.html'.format(root), video_url='/api/youtube/video/{}'.format(watch_video_id[session_id]), title=title, description=description)
+        del watch_video_id[session_id]
+
+        return render_template('watch.html'.format(root), video_url='/api/youtube/video/{}'.format(video_id), title=title, description=description)
     else:
         return render_template('index.html'.format(root))
 
